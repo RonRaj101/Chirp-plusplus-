@@ -5,15 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Chirp extends Model
+class Likes extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'message',
-        'privacy_status'
+        'user_id',
+        'chirps_id',
     ];
 
     public function user(): BelongsTo
@@ -21,8 +20,9 @@ class Chirp extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function likes(): HasMany
+    public function chirp(): BelongsTo
     {
-        return $this->hasMany(Likes::class);
+        return $this->belongsTo(Chirp::class);
     }
+
 }

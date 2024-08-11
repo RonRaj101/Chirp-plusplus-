@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chirp;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -23,8 +24,8 @@ class ChirpController extends Controller
     public function index(): Response
     {
         return Inertia::render('Chirps/Index', [
-            //modified to only show chirps from the authenticated user
-            'chirps' => Chirp::with('user:id,name')->where('user_id', Auth::id())->latest()->get()
+            //modified to only show chirps from the authenticated user, and if liked by the user
+            'chirps' => User::find(Auth::id())->chirps()->with('user:id,name')->latest()->get(),
         ]);
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ChirpController;
+use App\Http\Controllers\LikesController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Chirp;
 use Illuminate\Foundation\Application;
@@ -43,5 +44,11 @@ Route::resource('chirps', ChirpController::class)
 
 //Get profile information for given id, if same id as authenticated user, redirect to profile.edit    
 Route::get('/profiles/{id}', [ProfileController::class, 'show'])->name('profile.show');
+
+Route::resource('likes', LikesController::class)
+    ->only(['show','store','destroy'])
+    ->middleware(['auth','verified']);
+
+Route::get('/likes', [LikesController::class, 'show'])->name('likes.show');    
 
 require __DIR__.'/auth.php';

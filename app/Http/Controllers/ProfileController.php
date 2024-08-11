@@ -20,7 +20,7 @@ class ProfileController extends Controller
      * Display the user's profile form.
      */
 
-    public function show(Request $request, $id)
+    public function show($id)
     {
         // if ($request->user()->id == $id) {
         //     return Redirect::route('profile.edit');

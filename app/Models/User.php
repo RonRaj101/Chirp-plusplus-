@@ -17,6 +17,11 @@ class User extends Authenticatable
         return $this->hasMany(Chirp::class);
     }
 
+    public function likes(): HasMany
+    {
+        return $this->hasMany(Likes::class);
+    }
+
 
     use HasApiTokens, HasFactory, Notifiable;
 
