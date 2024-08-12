@@ -7,6 +7,7 @@ use App\Models\Chirp;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Helpers\AppHelper;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,7 +30,14 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard',['chirps' => Chirp::with('user:id,name')->where('privacy_status','publ')->latest()->get()]);
+    $allChirps = Chirp::with('user:id,name')->where('privacy_status','publ')->latest()->get();
+
+    //append number of likes and if the authenticated user has liked the chirp
+    AppHelper::appendLikes($allChirps);
+
+    return Inertia::render('Dashboard',[
+        'chirps' => $allChirps
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

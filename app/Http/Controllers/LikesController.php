@@ -16,7 +16,7 @@ class LikesController extends Controller
     {
         return Inertia::render('Likes', [
             //Find current user id, then get all chirp ids that user has liked
-            $likedChirpIds = User::find(Auth::id())->likes()->get('chirps_id'),
+            $likedChirpIds = User::find(Auth::id())->likes()->get('chirp_id'),
             'likedChirps' => Chirp::whereIn('id', $likedChirpIds)->with('user:id,name')->latest()->get(),
         ]);
     }   

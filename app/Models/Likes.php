@@ -12,7 +12,7 @@ class Likes extends Model
 
     protected $fillable = [
         'user_id',
-        'chirps_id',
+        'chirp_id',
     ];
 
     public function user(): BelongsTo

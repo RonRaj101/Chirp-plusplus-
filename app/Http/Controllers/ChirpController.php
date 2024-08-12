@@ -10,9 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Inertia\Inertia;
 use Inertia\Response;
-
-
-use function Termwind\render;
+use App\Helpers\AppHelper;
+use Illuminate\Support\Facades\App;
 
 class ChirpController extends Controller
 {
@@ -23,9 +22,15 @@ class ChirpController extends Controller
      */
     public function index(): Response
     {
+        //get all chirps from the authenticated user
+        $relevantChirps = Chirp::with('user:id,name')->where('user_id', Auth::id())->latest()->get();
+
+        //append number of likes and if the authenticated user has liked the chirp
+        AppHelper::appendLikes($relevantChirps);
+
         return Inertia::render('Chirps/Index', [
-            //modified to only show chirps from the authenticated user, and if liked by the user
-            'chirps' => User::find(Auth::id())->chirps()->with('user:id,name')->latest()->get(),
+            //modified to only show chirps from the authenticated user, get all likes for each chirp
+            'chirps' => $relevantChirps
         ]);
     }
 

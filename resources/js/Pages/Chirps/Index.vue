@@ -13,7 +13,6 @@ const form = useForm({
     message: '',
     privacy_status: 'priv'
 });
-
 //this leads to the value not being reactive, hence we dont use this. Instead we use the actual method in the html
 //const daysSinceLastChirp = ref(timeSinceLastChirp(props.chirps[0].created_at));
 
