@@ -57,6 +57,8 @@ Route::resource('likes', LikesController::class)
     ->only(['show','store','destroy'])
     ->middleware(['auth','verified']);
 
-Route::get('/likes', [LikesController::class, 'show'])->name('likes.show');    
+Route::get('/likes', [LikesController::class, 'show'])->name('likes.show'); 
+Route::post('/likes/{id}', [LikesController::class, 'store'])->name('likes.store');  
+Route::delete('/likes/{id}', [LikesController::class, 'destroy'])->name('likes.destroy'); 
 
 require __DIR__.'/auth.php';

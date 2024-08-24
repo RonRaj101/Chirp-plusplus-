@@ -8,39 +8,45 @@ use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Likes;
 use Illuminate\Support\Facades\Auth;
+use App\Helpers\AppHelper;
 
 class LikesController extends Controller
 {   
 
     public function show()
     {
+        $likedChirpIds = User::find(Auth::id())->likes()->get('chirp_id');
+        $likedChirps = Chirp::whereIn('id', $likedChirpIds)->with('user:id,name')->latest()->get();
+        AppHelper::appendLikes($likedChirps);
         return Inertia::render('Likes', [
             //Find current user id, then get all chirp ids that user has liked
-            $likedChirpIds = User::find(Auth::id())->likes()->get('chirp_id'),
-            'likedChirps' => Chirp::whereIn('id', $likedChirpIds)->with('user:id,name')->latest()->get(),
+            'likedChirps' => $likedChirps
         ]);
     }   
 
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'chirp_id' => 'required|integer|exists:chirps,id',
+    public function store($id)
+    {  
+
+        if(Likes::where('user_id', Auth::id())->where('chirp_id', $id)->exists()){
+            return redirect()->back();
+        }
+
+        Likes::create([
+            'user_id' => Auth::id(),
+            'chirp_id' => $id,
         ]);
 
-        $request->user()->likes()->create($validated);
-
-        return redirect(route('chirps.index'));
+        return redirect()->back(); 
     }
 
-    public function destroy(Request $request)
-    {
-        $request->validate([
-            'chirp_id' => 'required|integer|exists:chirps,id',
-        ]);
+    public function destroy($id)
+    {   
+        if(!Likes::where('user_id', Auth::id())->where('chirp_id', $id)->exists()){
+            return redirect()->back();
+        }
 
-        Likes::where('user_id', Auth::id())->where('chirp_id', $request->chirp_id)->delete();
-
-        return redirect(route('chirps.index'));
+        Likes::where('user_id', Auth::id())->where('chirp_id', $id)->delete();
+        return redirect()->back();
     }
 
 }

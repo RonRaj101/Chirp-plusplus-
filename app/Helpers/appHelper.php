@@ -11,6 +11,9 @@ class AppHelper{
             if($chirp->likes()->where('user_id', Auth::id())->exists()){
                 $chirp["liked"] = true;
             }
+            else{
+                $chirp["liked"] = false;
+            }
             $chirp["likes"] = $chirp->likes()->count();
         }
     }

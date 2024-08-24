@@ -19,15 +19,13 @@ const like = useForm({
     value: props.chirp.liked
 });
 
-console.log(like.value);
-
 const toggleLike = (id) => {
     like.value = !like.value;
     
     if (like.value) {
-        like.post(route('likes.store', id)), { onSuccess: () => console.log('liked') };
+        like.post(route('likes.store', id), {}, {preserveState: true, preserveScroll: true,});
     } else {
-        like.delete(route('likes.destroy', id)), { onSuccess: () => console.log('unliked') };
+        like.delete(route('likes.destroy', id), {} , {preserveState: true, preserveScroll: true,});
     }
 }
  

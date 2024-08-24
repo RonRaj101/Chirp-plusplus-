@@ -28,7 +28,7 @@ defineProps(['likedChirps']);
                 :chirp="chirp"
             />
             
-            <div v-if="likedChirps.length === 0"  class="p-6 text-center text-gray-500">No chirps yet. <u><a :href="route('chirps.index')">Make your first chirp!</a></u></div>
+            <div v-if="likedChirps.length === 0"  class="p-6 text-center text-gray-500">No likes yet. <u><a :href="route('dashboard')">Like your first chirp!</a></u></div>
         </div>
 
         
