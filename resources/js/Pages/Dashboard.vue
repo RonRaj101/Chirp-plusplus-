@@ -1,10 +1,15 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head, router } from '@inertiajs/vue3';
 import Chirp from '@/Components/Chirp.vue';
+
 import timeSinceLastChirp from '@/Helpers/timeSinceLastChirp.js';
 
 defineProps(['chirps']);
+
+
+
+
 </script>
 
 <template>

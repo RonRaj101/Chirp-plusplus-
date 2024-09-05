@@ -36,8 +36,9 @@ Route::get('/dashboard', function () {
     AppHelper::appendLikes($allChirps);
 
     return Inertia::render('Dashboard',[
-        'chirps' => $allChirps
+        'chirps' => fn() => $allChirps
     ]);
+
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

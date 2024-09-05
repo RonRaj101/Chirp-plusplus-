@@ -1,12 +1,11 @@
 <script setup>
 import Dropdown from '@/Components/Dropdown.vue';
-import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import { router, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import InputLabel from '@/Components/InputLabel.vue'
-
+import { defineProps } from 'vue';
 
 const props = defineProps(['chirp']);
  
@@ -19,13 +18,14 @@ const like = useForm({
     value: props.chirp.liked
 });
 
+
 const toggleLike = (id) => {
     like.value = !like.value;
     
     if (like.value) {
-        like.post(route('likes.store', id), {}, {preserveState: true, preserveScroll: true,});
+        router.post(route('likes.store', id), {}, { preserveScroll : true, preserveState: true,});
     } else {
-        like.delete(route('likes.destroy', id), {} , {preserveState: true, preserveScroll: true,});
+        router.delete(route('likes.destroy', id),{ preserveScroll : true, preserveState: true,});
     }
 }
  
@@ -104,4 +104,4 @@ const editing = ref(false);
 
         </div>
     </div>
-</template>
+</template>routerrouter

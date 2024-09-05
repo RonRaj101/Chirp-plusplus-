@@ -28,7 +28,7 @@ class LikesController extends Controller
     {  
 
         if(Likes::where('user_id', Auth::id())->where('chirp_id', $id)->exists()){
-            return redirect()->back();
+            return;   
         }
 
         Likes::create([
@@ -36,17 +36,17 @@ class LikesController extends Controller
             'chirp_id' => $id,
         ]);
 
-        return redirect()->back(); 
+        return; 
     }
 
     public function destroy($id)
     {   
         if(!Likes::where('user_id', Auth::id())->where('chirp_id', $id)->exists()){
-            return redirect()->back();
+            return;
         }
 
         Likes::where('user_id', Auth::id())->where('chirp_id', $id)->delete();
-        return redirect()->back();
+        return;
     }
 
 }
