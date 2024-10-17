@@ -6,10 +6,7 @@ import { ref, defineProps } from 'vue';
 import { usePage } from '@inertiajs/vue3';
 //need to use $page for initial prop movement, second prop movement is done by defineProps
 
-const $page = usePage();
-const props = defineProps(['user'],['chirps']);
-
-const chirps = $page.props.chirps;
+const props = defineProps(['user', 'chirps']);
 
 </script>
 

@@ -39,7 +39,7 @@ const form = useForm({
                     rows="10"
                     minlength="100"
                     placeholder="What's on your mind today?"
-                    class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                    class="block whitespace-pre w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
                     required
                 ></textarea>
                 <InputLabel class="text-end" :class="form.message.length < 100 ? 'text-red-400' : 'text-green-500'">{{form.message.length}}/100</InputLabel>

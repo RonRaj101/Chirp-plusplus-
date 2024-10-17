@@ -60,7 +60,7 @@ class ChirpController extends Controller
 
         $request->user()->chirps()->create($validated);
 
-        return redirect(route('chirps.index'));
+        return redirect()->back();
     }
 
     /**

@@ -34,8 +34,9 @@ defineProps(['chirps']);
                 
                 <div v-if="chirps.length === 0"  class="p-6 text-center text-gray-500">No chirps yet. <u><a :href="route('chirps.index')">Make your first chirp!</a></u></div>
             </div>
-        
-        
+            
+
+            
     </AuthenticatedLayout>
 </template>
 

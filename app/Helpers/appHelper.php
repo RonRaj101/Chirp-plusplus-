@@ -15,6 +15,7 @@ class AppHelper{
                 $chirp["liked"] = false;
             }
             $chirp["likes"] = $chirp->likes()->count();
+            $chirp["comments"] = $chirp->comments()->count();
         }
     }
 }

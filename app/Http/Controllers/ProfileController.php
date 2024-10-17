@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
-
+use App\Helpers\AppHelper;
 use App\Models\Chirp;
 
 class ProfileController extends Controller
@@ -25,10 +25,16 @@ class ProfileController extends Controller
         // if ($request->user()->id == $id) {
         //     return Redirect::route('profile.edit');
         // }
+
+        $relevantChirps = Chirp::with('user:id,name')->where('user_id', Auth::id())->where('privacy_status','publ')->latest()->get();
+
+        //append number of likes and if the authenticated user has liked the chirp
+        AppHelper::appendLikes($relevantChirps);
+
         return Inertia::render('ProfileInformation', [
             'user' => User::findOrFail($id)->only('name', 'email'),
-            //all chirps where user id is id
-            'chirps' => Chirp::with('user:id,name')->where('user_id', $id)->where('privacy_status','publ')->latest()->get()
+            //modified to only show chirps from the authenticated user, get all likes for each chirp
+            'chirps' => $relevantChirps
         ]);
     }
 
